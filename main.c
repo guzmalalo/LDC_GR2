@@ -188,4 +188,9 @@ int main()
     liste = funcAjoutEnTeteDeListe(liste, 5, "E");
     afficherListeAvecWhile(liste);
 
+
+    // Liberation de la liste
+    printf("\n********* Liberation de liste **************\n");
+    libererListe(&liste);
+    afficherListeAvecWhile(liste);
 }
