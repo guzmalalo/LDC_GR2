@@ -32,8 +32,8 @@ Maillon *initMaillon(int n, const char *nom)
     return temp;
 }
 
-// Ajoute en tete de liste
-// A simplifier après compris le principe.
+// Ajouter en tete de liste
+// À simplifier après compris le principe.
 void procAjoutEnTeteDeListe(Maillon **pointeurSurListe, int n, const char *nom)
 {
     // Creation du nouveau Maillon
@@ -50,7 +50,7 @@ void procAjoutEnTeteDeListe(Maillon **pointeurSurListe, int n, const char *nom)
     // Si non
     else
     {
-        // Mise à jour des voisin du nouveau Maillon
+        // Mise à jour des voisins du nouveau Maillon
         temp->droite = *pointeurSurListe;
         // temp->gauche = NULL; // inutile car init Maillon initialise à NULL
 
@@ -63,7 +63,7 @@ void procAjoutEnTeteDeListe(Maillon **pointeurSurListe, int n, const char *nom)
     }
 }
 
-// Meme principe mais cette fois on retourne l'adresse de la nouvelle tête
+// Même principe, mais cette fois, on retourne l'adresse de la nouvelle tête
 // Peut etre simplifié : à faire.
 Maillon *funcAjoutEnTeteDeListe(Maillon *liste, int n, const char *nom)
 {
@@ -86,7 +86,7 @@ Maillon *funcAjoutEnTeteDeListe(Maillon *liste, int n, const char *nom)
     return liste;
 }
 
-// Travail
+// Ajoute en fin de liste
 void procAjoutEnFinDeListe(Maillon **pointeurSurListe, int n, const char *nom)
 {
     // Definition des variables
@@ -115,11 +115,29 @@ void functAjoutEnFinDeListe(Maillon **pointeurSurListe, int n, const char *nom)
 {
 }
 
-// On enleve le premiere element de la liste
+// On pioche le premiere element de la liste,
 // mais on le conserve en memoire
 Maillon *piocheEnTeteDeListe(Maillon **liste)
 {
+    // Pointeur vers maillon à retirer.
+    Maillon * temp = NULL;
 
+    // Verifie si la liste est vide
+    if (*liste != NULL){
+        // on repere la tête de la liste
+        temp = *liste;
+
+        // on met à jour la tête
+        *liste = temp->droite;
+        (*liste)->gauche = NULL;
+
+        // on isole le maillon
+        temp->droite = NULL;
+        temp->gauche = NULL;
+    }
+
+    // on renvoie l'élément isolé
+    return temp;
 }
 
 // On enleve le derniere element de la liste
@@ -206,14 +224,18 @@ int main()
     liste = funcAjoutEnTeteDeListe(liste, 5, "E");
     afficherListeAvecWhile(liste);
 
-
-    // Ajout en fin de liste (HEAD)
     // Ajout en fin de liste (HEAD)
     printf("\n********* Ajout en tete de liste ***********\n");
     procAjoutEnFinDeListe(&liste, 1, "A");
     procAjoutEnFinDeListe(&liste, 2, "B");
     afficherListeAvecWhile(liste);
-
+    // Piocher en tête
+    printf("\n********* Piocher en tete de liste *********\n");
+    Maillon *recup_tete = piocheEnTeteDeListe(&liste);
+    afficherListeAvecWhile(liste);
+    printf("Element pioché : ");
+    afficheMaillon(recup_tete);
+    free(recup_tete); // liberation du maillon recupere
 
     // Liberation de la liste
     printf("\n********* Liberation de liste **************\n");
