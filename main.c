@@ -89,7 +89,25 @@ Maillon *funcAjoutEnTeteDeListe(Maillon *liste, int n, const char *nom)
 // Travail
 void procAjoutEnFinDeListe(Maillon **pointeurSurListe, int n, const char *nom)
 {
+    // Definition des variables
+    Maillon * tail = *pointeurSurListe;
 
+    // Allocation d'un nouveau maillon
+    Maillon * temp = initMaillon(n,nom);
+
+    // Verification de la liste
+    if(*pointeurSurListe == NULL){
+        *pointeurSurListe = temp;
+    }else{
+        // cherche la fin
+        while (tail->droite !=NULL){
+            tail = tail->droite;
+        }
+
+        // on a trouvé la fin
+        tail->droite = temp;
+        temp->gauche = tail;
+    }
 }
 
 // Faire la version "fonction" d'ajouter en fin de liste.
@@ -186,6 +204,14 @@ int main()
     procAjoutEnTeteDeListe(&liste, 3, "C");
     procAjoutEnTeteDeListe(&liste, 4, "D");
     liste = funcAjoutEnTeteDeListe(liste, 5, "E");
+    afficherListeAvecWhile(liste);
+
+
+    // Ajout en fin de liste (HEAD)
+    // Ajout en fin de liste (HEAD)
+    printf("\n********* Ajout en tete de liste ***********\n");
+    procAjoutEnFinDeListe(&liste, 1, "A");
+    procAjoutEnFinDeListe(&liste, 2, "B");
     afficherListeAvecWhile(liste);
 
 
