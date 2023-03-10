@@ -140,14 +140,33 @@ Maillon *piocheEnTeteDeListe(Maillon **liste)
     return temp;
 }
 
-// On enleve le derniere element de la liste
+// On pioche le dernier element de la liste,
 // mais on le conserve en memoire
 Maillon *piocheEnFinDeListe(Maillon **liste)
 {
+    // Pointeur vers le maillon à piocher
+    Maillon * temp = *liste;
+
+    // si la liste n'est pas vide
+    if(*liste != NULL){
+
+        // cherche la fin
+        while (temp->droite != NULL){
+            temp = temp->droite;
+        }
+        // on a trouvé la fin
+        // le voisin à droite du prec est null
+        (temp->gauche)->droite = NULL;
+
+        // on isole le maillon temp
+        temp->droite = NULL;
+        temp->gauche = NULL;
+    }
+    return temp;
 
 }
 
-// On enleve un maillon donnée s'il existe.
+// On pioche un maillon donné s'il existe.
 Maillon *piocheUnMaillon(Maillon **liste, const int n)
 {
 
@@ -236,6 +255,14 @@ int main()
     printf("Element pioché : ");
     afficheMaillon(recup_tete);
     free(recup_tete); // liberation du maillon recupere
+
+    // Piocher en fin
+    printf("\n********* Piocher en fin de liste **********\n");
+    Maillon *recup_fin = piocheEnFinDeListe(&liste);
+    afficherListeAvecWhile(liste);
+    printf("Element pioché : ");
+    afficheMaillon(recup_fin);
+    free(recup_fin); // liberation du maillon recupere
 
     // Liberation de la liste
     printf("\n********* Liberation de liste **************\n");
