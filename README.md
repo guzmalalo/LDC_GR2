@@ -4,9 +4,9 @@ Correction du TP Liste doublement chainée - GR2
 
 A faire:
 
-- [ ] Ajouter à la fin 
-- [ ] Piocher au debut
-- [ ] Piocher à la fin 
+- [X] Ajouter à la fin 
+- [X] Piocher au debut
+- [X] Piocher à la fin
+- [X] Liberation
+- [X] Affichage
 - [ ] Piocher un maillon quelconque
-- [ ] Liberation
-- [ ] Affichage
